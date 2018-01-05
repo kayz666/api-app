@@ -9,12 +9,10 @@ import (
 
 var Config config.Configer
 
-func Config_init(confpath string) error{
-	Conf, err := config.NewConfig("ini", confpath)
+func init( ){
+	Conf, err := config.NewConfig("ini", "./conf/app.conf")
 	if err != nil {
 		fmt.Println(err.Error())
-		return err
 	}
 	Config = Conf
-	return nil
 }

@@ -1,14 +1,19 @@
 package model
 
+
 import (
 	"github.com/satori/go.uuid"
 	"github.com/kayz666/api-app/utils"
+	"fmt"
+
 )
+func RandomAccount()string{
+	return fmt.Sprintf("user_%s%s","10",uuid.NewV1().String()[:6])
+}
 
 
-
-func StringToPassword(p string) string{
-	return utils.StrToMD5v1(p)
+func MakePasswd(p string) string{
+	return utils.Encrypt(p,"AES_128")
 }
 
 func RandomUUID() string{
