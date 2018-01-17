@@ -18,19 +18,11 @@ func V1(router *gin.Engine) {
 	})
 	v1 := router.Group("/v1",middlewares.MiddleWare_Auth())
 	{
-		v1.GET		("/user",				handlers.Getuserall)   //获得用户列表
-		v1.GET		("/user/:id/:d",		handlers.Getuser)  //获得某用户信息
-		v1.POST		("/user",				handlers.Reguser)  //创建新用户
-		v1.PUT		("/user/:id"			)   //更新用户
-		v1.PATCH	("/user/:id/*var"		)  //更新用户，指定部分
-		v1.DELETE	("/user/:id"			)  //删除用户
 
+		v1.POST		("/user/register",			handlers.UserReg)   //用户注册
+		v1.POST		("/user/validate",			handlers.UserVali)	//用户验证
+		v1.POST		("/user/login",			handlers.UserLogin)
 
-		v1.GET 		("/email",				handlers.GetEmailAll)   //获得所有用户的email列表
-		v1.GET		("/email/:email",		handlers.GetEmail)		//获得 :email的 基础信息（是否存在）
-		v1.POST		("/email/:email",handlers.PostEmail)	//提交注册确认
-
-		v1.POST		("/login/:mode",)  //用户获取登陆信息
 	}
 
 }

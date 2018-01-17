@@ -9,6 +9,7 @@ import (
 
 var(
 	SysDb *xorm.Engine
+	DataDb *xorm.Engine
 )
 
 
@@ -17,20 +18,25 @@ func DB_init() bool{
 	username := "kay"
 	password := "443622fF"
 	sys_dbName := "longlee_sys"
-	maxIdle := 30
-	maxConn := 30
+	data_dbName := "longlee_data"
+	//maxIdle := 30
+	//maxConn := 30
 	//data_dbName := "orm_data"
 	var err error
 	SysDb,err =xorm.NewEngine("mysql",username+":"+password+"@tcp("+server+":3306)/"+sys_dbName+"?charset=utf8")
-
+	if err != nil {
+		utils.LogErr(err.Error())
+		return false
+	}
+	DataDb,err =xorm.NewEngine("mysql",username+":"+password+"@tcp("+server+":3306)/"+data_dbName+"?charset=utf8")
 	if err != nil {
 		utils.LogErr(err.Error())
 		return false
 	}
 	//defer SysDb.Close()
 	//SysDb.ShowSQL(false)
-	SysDb.SetMaxIdleConns(maxIdle)
-	SysDb.SetMaxOpenConns(maxConn)
+	//SysDb.SetMaxIdleConns(maxIdle)
+	//SysDb.SetMaxOpenConns(maxConn)
 	err = SysDb.Sync(new(User)) //更新模型到数据库
 	if err != nil {
 		utils.LogErr(err.Error())
